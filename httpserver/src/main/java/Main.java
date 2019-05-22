@@ -23,7 +23,7 @@ public class Main {
                         // считываем буфер
                         fin.read(RespData, 0, RespData.length);
                     }
-*/
+ttt*/
                     Response response = new Response(RespData);
                     response.setHeader("Content-lenght", String.valueOf(RespData.length));
                     request.setStatus(200);
