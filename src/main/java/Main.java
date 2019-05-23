@@ -5,15 +5,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Main {
-    public static final String FOLDER = "D://Folder//";
+    public static final String STORAGE = "D:/Folder/";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(1234)) {
             while (true) {
                 try (Socket socket = serverSocket.accept()) {
-                    Request request = HttpUtils.readRequestFromInputStream(socket.getInputStream());
+                    Request request = HttpUtils.readRequestFromInputStream(socket.getInputStream(), STORAGE.length());
                     String resource = request.getResource();
-                    File file = new File(FOLDER + resource);
+                    File file = new File(STORAGE + resource);
                     byte[] respData;
                     try (FileInputStream fin = new FileInputStream(file)) {
                         respData = new byte[fin.available()];
@@ -23,8 +23,8 @@ public class Main {
 
                     Response response = new Response(respData);
                     response.setHeader("Content-lenght", String.valueOf(respData.length));
-                    request.setStatus(200);
-                    request.setStatusName("Ok");
+                    response.setStatus(200);
+                    response.setStatusName("Ok");
                     socket.getOutputStream().write(response.toBytes());
                 }
             }
