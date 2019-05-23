@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -15,26 +14,22 @@ public class Main {
                     Request request = HttpUtils.readRequestFromInputStream(socket.getInputStream());
                     String resource = request.getResource();
                     File file = new File(FOLDER + resource);
-
-/*мой убогий кусок, хотела в байты файл
-                    try(FileInputStream fin = new FileInputStream(file))
-                    {
-                        byte[] RespData = new byte[fin.available()];
+                    byte[] respData;
+                    try (FileInputStream fin = new FileInputStream(file)) {
+                        respData = new byte[fin.available()];
                         // считываем буфер
-                        fin.read(RespData, 0, RespData.length);
+                        fin.read(respData, 0, respData.length);
                     }
-tttyy*/
-                    Response response = new Response(RespData);
-                    response.setHeader("Content-lenght", String.valueOf(RespData.length));
+
+                    Response response = new Response(respData);
+                    response.setHeader("Content-lenght", String.valueOf(respData.length));
                     request.setStatus(200);
-                    request.SetStatusName("Ok");
-                    socket.getOutputStream().write(response.toBytes);
+                    request.setStatusName("Ok");
+                    socket.getOutputStream().write(response.toBytes());
                 }
             }
-
-        catch(IOException e){
-                System.out.println(e);
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-}
+    }
 }
