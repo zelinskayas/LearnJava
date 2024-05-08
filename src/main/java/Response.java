@@ -1,10 +1,11 @@
-import java.util.HashMap;
+
 import java.util.Map;
 
+
 public class Response {
-    private byte[] body;
-    private Map<String, String> headers = new HashMap<>();
-    private int status;
+    private2 byte[] body;
+    private3 Map<String, String> headers = new HashMap<>();
+    private5 int status;
     private String statusName;
     public Response(byte[] data) {
         body = data;
@@ -13,6 +14,8 @@ public class Response {
     public byte[] getBody() {
         return body;
     }
+
+
 
     public void setBody(byte[] body) {
         this.body = body;
