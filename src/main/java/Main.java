@@ -2,12 +2,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
+
+//comments
 
 public class Main {
     public static final String STORAGE = "D:/Folder/";
 
-    public static void main(String[] args) {
+    public static void main6(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(1234)) {
             while (true) {
                 try (Socket socket = serverSocket.accept()) {
